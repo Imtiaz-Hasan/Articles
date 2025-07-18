@@ -1,0 +1,190 @@
+{
+  "info": {
+    "_postman_id": "b1e1e1e1-1111-2222-3333-444455556666",
+    "name": "Articles API Collection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Postman collection for the Articles Laravel API assessment."
+  },
+  "variable": [
+    { "key": "base_url", "value": "http://localhost:8000/api" },
+    { "key": "token", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"test@example.com\",\n  \"password\": \"password\"\n}"
+            },
+            "url": { "raw": "{{base_url}}/auth/login", "host": [ "{{base_url}}" ], "path": [ "auth", "login" ] }
+          },
+          "response": []
+        },
+        {
+          "name": "Me",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "Authorization", "value": "Bearer {{token}}" } ],
+            "url": { "raw": "{{base_url}}/auth/me", "host": [ "{{base_url}}" ], "path": [ "auth", "me" ] }
+          },
+          "response": []
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Authorization", "value": "Bearer {{token}}" } ],
+            "url": { "raw": "{{base_url}}/auth/logout", "host": [ "{{base_url}}" ], "path": [ "auth", "logout" ] }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Articles (Authenticated)",
+      "item": [
+        {
+          "name": "List My Articles",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "Authorization", "value": "Bearer {{token}}" } ],
+            "url": { "raw": "{{base_url}}/articles/mine", "host": [ "{{base_url}}" ], "path": [ "articles", "mine" ] }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Article",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"My Article\",\n  \"body\": \"This is the body.\",\n  \"status\": \"draft\",\n  \"category_id\": 1\n}"
+            },
+            "url": { "raw": "{{base_url}}/articles", "host": [ "{{base_url}}" ], "path": [ "articles" ] }
+          },
+          "response": []
+        },
+        {
+          "name": "View Article (Own)",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "Authorization", "value": "Bearer {{token}}" } ],
+            "url": { "raw": "{{base_url}}/articles/1", "host": [ "{{base_url}}" ], "path": [ "articles", "1" ] }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Article (Own)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Updated Title\"\n}"
+            },
+            "url": { "raw": "{{base_url}}/articles/1", "host": [ "{{base_url}}" ], "path": [ "articles", "1" ] }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Article (Own)",
+          "request": {
+            "method": "DELETE",
+            "header": [ { "key": "Authorization", "value": "Bearer {{token}}" } ],
+            "url": { "raw": "{{base_url}}/articles/1", "host": [ "{{base_url}}" ], "path": [ "articles", "1" ] }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Articles (Public)",
+      "item": [
+        {
+          "name": "List Published Articles (with filters)",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/articles?category=tech&user_id=1", "host": [ "{{base_url}}" ], "path": [ "articles" ], "query": [ { "key": "category", "value": "tech" }, { "key": "user_id", "value": "1" } ] }
+          },
+          "response": []
+        },
+        {
+          "name": "View Published Article",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/articles/public/1", "host": [ "{{base_url}}" ], "path": [ "articles", "public", "1" ] }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Categories (Authenticated)",
+      "item": [
+        {
+          "name": "List Categories",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "Authorization", "value": "Bearer {{token}}" } ],
+            "url": { "raw": "{{base_url}}/categories", "host": [ "{{base_url}}" ], "path": [ "categories" ] }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Category",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"New Category\"\n}"
+            },
+            "url": { "raw": "{{base_url}}/categories", "host": [ "{{base_url}}" ], "path": [ "categories" ] }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Category",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Updated Category\"\n}"
+            },
+            "url": { "raw": "{{base_url}}/categories/1", "host": [ "{{base_url}}" ], "path": [ "categories", "1" ] }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Category",
+          "request": {
+            "method": "DELETE",
+            "header": [ { "key": "Authorization", "value": "Bearer {{token}}" } ],
+            "url": { "raw": "{{base_url}}/categories/1", "host": [ "{{base_url}}" ], "path": [ "categories", "1" ] }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+} 
