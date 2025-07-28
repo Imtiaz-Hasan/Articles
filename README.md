@@ -23,7 +23,7 @@ A secure, cleanly-structured Laravel REST API system for article management with
 1. **Clone the repository**
    ```bash
    git clone <repository-url>
-   cd Articles
+   cd Laravel_Articles
    ```
 
 2. **Install dependencies**
